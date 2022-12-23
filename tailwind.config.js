@@ -5,6 +5,7 @@ module.exports = {
             chivo: ["chivo"]
         },
         extend: {
+
             colors: {
                 "blue": {
                     100: "rgba(34,176,218,1)",
