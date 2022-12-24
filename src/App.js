@@ -29,8 +29,8 @@ function App() {
         {/* exp */}
         {/* light/dark mode */}
         {/* pdf */}
-        <Header />
         <Nav />
+        <Header />
         <About />
         <Experience />
         <Services />
