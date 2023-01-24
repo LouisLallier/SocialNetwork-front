@@ -1,11 +1,44 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-scroll";
 import {
   Navbar,
   MobileNav,
   Typography,
-  Button,
   IconButton,
 } from "@material-tailwind/react";
+
+export const refs = {
+  xpRef: "xpRef",
+  portfolioRef: "portfolioRef",
+  contactRef: "contactRef",
+};
+
+const sections = [
+  { name: "Experience", ref: refs.xpRef },
+  { name: "Portfolio", ref: refs.portfolioRef },
+  { name: "Contact", ref: refs.contactRef },
+];
+
+const FancyNavLink = ({ name, to }) => (
+  <Typography
+    as="li"
+    variant="small"
+    color="blue-gray"
+    className="p-1 font-normal cursor-pointer hover:underline underline-offset-4"
+  >
+    <Link
+      activeClass="active"
+      className="flex items-center"
+      to={to}
+      spy={true}
+      smooth={true}
+      offset={50}
+      duration={500}
+    >
+      {name}
+    </Link>
+  </Typography>
+);
 
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -19,64 +52,23 @@ const Nav = () => {
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
-      </Typography>
+      {sections.map(({ name, ref }) => (
+        <FancyNavLink key={name} name={name} to={ref} />
+      ))}
     </ul>
   );
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-2 px-4 lg:px-8 lg:py-4">
-      <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
+    <Navbar className="fixed max-w-screen-xlpy-2 px-4 lg:px-8 lg:py-4">
+      <div className="p-4 container mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
-          href="#"
           variant="small"
           className="mr-4 cursor-pointer py-1.5 font-normal"
         >
-          <span>Material Tailwind</span>
+          <span>Social Network</span>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
-        <Button variant="gradient" size="sm" className="hidden lg:inline-block">
-          <span>Buy Now</span>
-        </Button>
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -115,12 +107,7 @@ const Nav = () => {
           )}
         </IconButton>
       </div>
-      <MobileNav open={openNav}>
-        {navList}
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span>Buy Now</span>
-        </Button>
-      </MobileNav>
+      <MobileNav open={openNav}>{navList}</MobileNav>
     </Navbar>
   );
 };
